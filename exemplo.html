@@ -1,0 +1,39 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazer um POST com FetchApi e FormData</title>
+</head>
+
+<body>
+    <form class="form" id="formulario">
+        <input name="usuario" type="text" placeholder="usuario">
+        <input name="senha" type="password" placeholder="senha">
+        <input name="checkbox" type="checkbox">
+        <button id='botaoEnviar' type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const formularioEl = document.getElementById('formulario');
+        formularioEl.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const formData = new FormData(formularioEl);
+            const data = Object.fromEntries(formData);
+
+            fetch('https://reqres.in/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+        })
+    </script>
+</body>
+
+</html>
